@@ -79,10 +79,35 @@ accuracy=tf.reduce_mean(tf.cast(correct_pred,dtype=tf.float32))
 
 init=tf.global_variables_initializer()
 
-
+'''
 ####执行训练和测试操作.
-
-
+with tf.Session() as sess:
+    sess.run(init)
+    step=1
+    while(step*batch_size<max_samples):
+        batch_x,batch_y=mnist.train.next_batch(batch_size)
+        batch_x=batch_x.reshape((batch_size,n_steps,n_input))
+        sess.run(optimizer,feed_dict={x:batch_x,y:batch_y}
+        if(step % display_step==0):
+            acc=sess.run(accuracy,feed_dict={x:batch_x,\
+                                             y:batch_y})
+            loss=sess.run(cost,feed_dict={x:batch_x,y:batch_y})
+            print('Iter '+ str(step*batch_size) + ', Minibatch \
+                  Loss= ' + '{:.6f}'.format(loss) + ', Training \
+                  Accuracy= ' + '{:.5f}'.format(acc))
+        step+=1
+        
+    print('Optimization Finished!')
+    
+    
+####训练结束后,对测试数据进行预测   
+    test_len=10000
+    test_data=mnist.test.images[:test_len].reshape((-1,n_steps,n_input))
+    test_label=mnist.test.labels[:test_len]
+    print('Testing Accuracy:' , sess.run(accuracy,feed_dict=\
+                                         {x:test_data,y:test_label}))
+    
+'''
 
 
 
