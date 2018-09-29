@@ -100,7 +100,7 @@ with tf.Session() as sess:
     print('Optimization Finished!')
     
     
-####训练结束后,对测试数据进行预测   
+    ####训练结束后,对测试数据进行预测   
     test_len=10000
     test_data=mnist.test.images[:test_len].reshape((-1,n_steps,n_input))
     test_label=mnist.test.labels[:test_len]
