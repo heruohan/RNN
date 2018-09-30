@@ -4,7 +4,7 @@ Created on Tue Sep 18 23:52:16 2018
 
 @author: hecongcong
 """
-
+'''
 import tensorflow as tf
 import numpy as np
 from tensorflow.examples.tutorials.mnist import input_data
@@ -13,7 +13,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 ####下载数据
 mnist=input_data.read_data_sets(r'E:\tensorflow\DATA\MNIST',\
                                 one_hot=True)
-
+'''
 
 ####设置训练参数
 learning_rate=0.01
@@ -79,7 +79,7 @@ accuracy=tf.reduce_mean(tf.cast(correct_pred,dtype=tf.float32))
 
 init=tf.global_variables_initializer()
 
-'''
+
 ####执行训练和测试操作.
 with tf.Session() as sess:
     sess.run(init)
@@ -87,8 +87,8 @@ with tf.Session() as sess:
     while(step*batch_size<max_samples):
         batch_x,batch_y=mnist.train.next_batch(batch_size)
         batch_x=batch_x.reshape((batch_size,n_steps,n_input))
-        sess.run(optimizer,feed_dict={x:batch_x,y:batch_y}
-        if(step % display_step==0):
+        sess.run(optimizer,feed_dict={x:batch_x,y:batch_y})
+        if((step % display_step)==0):
             acc=sess.run(accuracy,feed_dict={x:batch_x,\
                                              y:batch_y})
             loss=sess.run(cost,feed_dict={x:batch_x,y:batch_y})
@@ -107,7 +107,7 @@ with tf.Session() as sess:
     print('Testing Accuracy:' , sess.run(accuracy,feed_dict=\
                                          {x:test_data,y:test_label}))
     
-'''
+
 
 
 
